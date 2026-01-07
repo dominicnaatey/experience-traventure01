@@ -1,0 +1,210 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User entity with role-based access control
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(CUSTOMER)
+  phone        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  bookings Booking[]
+  reviews  Review[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  STAFF
+}
+
+// Destination entity
+model Destination {
+  id          String   @id @default(cuid())
+  name        String
+  country     String
+  description String
+  coverImage  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  tours Tour[]
+
+  @@map("destinations")
+}
+
+// Tour entity with comprehensive details
+model Tour {
+  id            String       @id @default(cuid())
+  destinationId String
+  title         String
+  description   String
+  durationDays  Int
+  pricePerPerson Float
+  maxGroupSize  Int
+  difficulty    Difficulty?
+  inclusions    String[]
+  exclusions    String[]
+  itinerary     Json // Array of ItineraryDay objects
+  images        String[]
+  status        TourStatus   @default(ACTIVE)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  // Relations
+  destination   Destination        @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  availabilities TourAvailability[]
+  bookings      Booking[]
+  reviews       Review[]
+
+  @@map("tours")
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum TourStatus {
+  ACTIVE
+  INACTIVE
+}
+
+// Tour availability for date-based booking slots
+model TourAvailability {
+  id             String   @id @default(cuid())
+  tourId         String
+  startDate      DateTime
+  endDate        DateTime
+  availableSlots Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  tour     Tour      @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  bookings Booking[]
+
+  @@map("tour_availabilities")
+}
+
+// Booking entity linking users to tours
+model Booking {
+  id              String   @id @default(cuid())
+  userId          String
+  tourId          String
+  availabilityId  String
+  travelersCount  Int
+  totalPrice      Float
+  status          BookingStatus @default(PENDING)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tour         Tour             @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  availability TourAvailability @relation(fields: [availabilityId], references: [id], onDelete: Cascade)
+  payments     Payment[]
+
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+// Payment entity for transaction tracking
+model Payment {
+  id                     String        @id @default(cuid())
+  bookingId              String
+  amount                 Float
+  currency               String        @default("USD")
+  method                 PaymentMethod
+  provider               PaymentProvider
+  status                 PaymentStatus @default(PENDING)
+  providerTransactionId  String?
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  // Relations
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+enum PaymentMethod {
+  CARD
+  MOBILE_MONEY
+  BANK
+}
+
+enum PaymentProvider {
+  STRIPE
+  PAYSTACK
+  FLUTTERWAVE
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+// Review entity for customer feedback
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  tourId    String
+  rating    Int      // 1-5 rating
+  comment   String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  // Ensure one review per user per tour
+  @@unique([userId, tourId])
+  @@map("reviews")
+}
+
+// Content entity for CMS functionality
+model Content {
+  id        String      @id @default(cuid())
+  type      ContentType
+  title     String
+  body      String
+  published Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@map("contents")
+}
+
+enum ContentType {
+  BLOG
+  FAQ
+  PAGE
+}
