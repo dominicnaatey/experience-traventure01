@@ -95,6 +95,11 @@ export default function SignIn() {
               />
             </div>
           </div>
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Demo login: Email <span className="font-mono">admin@traventure.com</span>, Password <span className="font-mono">ADMIN@123log</span>
+            </p>
+          </div>
 
           {error && (
             <div className="text-red-600 text-sm text-center">{error}</div>
