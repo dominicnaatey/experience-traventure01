@@ -258,7 +258,7 @@ describe('Tour Creation Validation Properties', () => {
           invalidGroupSize: fc.oneof(
             fc.integer({ max: 0 }), // zero or negative
             fc.integer({ min: 101 }), // too large
-            fc.float({ min: 1, max: 100 }) // non-integer
+            fc.float({ min: Math.fround(1.1), max: Math.fround(99.9) }) // non-integer
           )
         }),
         (data) => {
