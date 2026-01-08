@@ -199,7 +199,27 @@ model Content {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
+  // Relations
+  versions ContentVersion[]
+
   @@map("contents")
+}
+
+// Content version history for audit purposes
+model ContentVersion {
+  id        String      @id @default(cuid())
+  contentId String
+  version   Int
+  title     String
+  body      String
+  published Boolean
+  createdAt DateTime    @default(now())
+
+  // Relations
+  content   Content     @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@unique([contentId, version])
+  @@map("content_versions")
 }
 
 enum ContentType {

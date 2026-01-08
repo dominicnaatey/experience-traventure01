@@ -56,6 +56,19 @@ export {
   BusinessRuleValidator,
 } from '../validation/business-rules';
 
+// Content model exports
+export type {
+  Content,
+  CreateContentData,
+  UpdateContentData,
+  ContentVersion,
+  ContentValidationError,
+} from './content';
+
+export {
+  ContentValidator,
+} from './content';
+
 // Re-export Prisma enums for convenience
 export {
   UserRole,
