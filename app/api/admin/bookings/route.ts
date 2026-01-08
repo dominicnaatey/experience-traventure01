@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../lib/auth';
-import { PrismaClient, BookingStatus } from '../../../generated/prisma';
+import { BookingStatus } from '../../../generated/prisma';
 import { AdminNotificationService } from '../../../lib/services/admin-notification';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma';
 
 // GET /api/admin/bookings - Get all bookings (admin only)
 export async function GET(request: NextRequest) {

@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../lib/auth';
-import { PrismaClient } from '../../../generated/prisma';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../lib/prisma';
 
 // GET /api/admin/reports - Generate revenue and booking conversion reports (admin only)
 export async function GET(request: NextRequest) {

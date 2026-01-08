@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
-import { PrismaClient } from '../../../generated/prisma'
-
-const prisma = new PrismaClient()
+import bcrypt from 'bcryptjs'
+import { prisma } from '../../../lib/prisma'
 
 // Add PasswordResetToken model to Prisma schema if not exists
 // This is a temporary mock implementation for the password reset token storage
@@ -148,7 +147,6 @@ export async function PUT(request: NextRequest) {
     }
 
     // Hash new password
-    const bcrypt = require('bcryptjs')
     const saltRounds = 12
     const newPasswordHash = await bcrypt.hash(newPassword, saltRounds)
 

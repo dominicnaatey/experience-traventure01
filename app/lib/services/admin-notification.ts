@@ -1,6 +1,4 @@
-import { PrismaClient } from '../../generated/prisma';
-
-const prisma = new PrismaClient();
+import { prisma } from '../prisma';
 
 export interface AdminNotificationData {
   type: 'PAYMENT_FAILURE' | 'PAYMENT_DISPUTE' | 'NEW_BOOKING' | 'BOOKING_CANCELLATION';

@@ -1,7 +1,6 @@
-import { PrismaClient, BookingStatus } from '../../generated/prisma';
+import { BookingStatus } from '../../generated/prisma';
 import { AvailabilityService } from './availability';
-
-const prisma = new PrismaClient();
+import { prisma } from '../prisma';
 
 export interface CreateBookingData {
   userId: string;
