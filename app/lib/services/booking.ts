@@ -1,5 +1,7 @@
 import { BookingStatus } from '../../generated/prisma';
 import { AvailabilityService } from './availability';
+import { NotificationService } from './notification';
+import { AdminNotificationService } from './admin-notification';
 import { prisma } from '../prisma';
 
 export interface CreateBookingData {
@@ -88,9 +90,20 @@ export class BookingService {
               destination: true
             }
           },
-          availability: true
+          availability: true,
+          user: {
+            select: { name: true, email: true }
+          }
         }
       });
+
+      // Send admin notification for new booking
+      try {
+        await AdminNotificationService.sendNewBookingNotification(booking.id);
+      } catch (notificationError) {
+        console.error('Failed to send new booking notification:', notificationError);
+        // Don't fail the booking creation if notification fails
+      }
 
       return booking as BookingWithDetails;
     } catch (error) {
@@ -107,7 +120,9 @@ export class BookingService {
       const booking = await prisma.booking.findUnique({
         where: { id: bookingId },
         include: {
-          availability: true
+          availability: true,
+          user: { select: { name: true, email: true } },
+          tour: { select: { title: true } }
         }
       });
 
@@ -141,10 +156,42 @@ export class BookingService {
                 destination: true
               }
             },
-            availability: true
+            availability: true,
+            user: { select: { name: true, email: true } },
+            payments: {
+              where: { status: 'SUCCESS' },
+              orderBy: { createdAt: 'desc' },
+              take: 1
+            }
           }
         });
       });
+
+      // Send booking confirmation email
+      try {
+        const payment = confirmedBooking.payments[0];
+        if (payment) {
+          await NotificationService.sendBookingConfirmationEmail({
+            customerEmail: confirmedBooking.user.email,
+            customerName: confirmedBooking.user.name || 'Valued Customer',
+            bookingId: confirmedBooking.id,
+            tourTitle: confirmedBooking.tour.title,
+            travelersCount: confirmedBooking.travelersCount,
+            totalPrice: confirmedBooking.totalPrice,
+            tourStartDate: confirmedBooking.availability.startDate,
+            paymentReceipt: {
+              id: payment.id,
+              amount: payment.amount,
+              currency: payment.currency,
+              method: payment.method,
+              provider: payment.provider
+            }
+          });
+        }
+      } catch (notificationError) {
+        console.error('Failed to send booking confirmation email:', notificationError);
+        // Don't fail the booking confirmation if notification fails
+      }
 
       return confirmedBooking as BookingWithDetails;
     } catch (error) {

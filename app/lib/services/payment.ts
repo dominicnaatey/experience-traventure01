@@ -2,6 +2,7 @@ import { prisma } from '@/app/lib/prisma';
 import { PaymentMethod, PaymentProvider, PaymentStatus, Payment } from '@/app/generated/prisma';
 import { BusinessRuleValidator } from '@/app/lib/validation/business-rules';
 import { AdminNotificationService } from './admin-notification';
+import { NotificationService } from './notification';
 
 export interface PaymentInitData {
   bookingId: string;
@@ -151,6 +152,23 @@ export class PaymentService {
         }
       }
     });
+
+    // Send payment status notification to customer
+    try {
+      await NotificationService.sendPaymentStatusEmail({
+        customerEmail: payment.booking.user.email,
+        customerName: payment.booking.user.name || 'Valued Customer',
+        paymentId: payment.id,
+        bookingId: payment.bookingId,
+        tourTitle: payment.booking.tour.title,
+        amount: payment.amount,
+        status: payment.status,
+        provider: payment.provider
+      });
+    } catch (notificationError) {
+      console.error('Failed to send payment status notification:', notificationError);
+      // Don't fail the payment update if notification fails
+    }
 
     // Update booking status based on payment status
     if (status === 'SUCCESS' && payment.booking.status === 'PENDING') {
