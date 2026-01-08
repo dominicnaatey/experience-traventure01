@@ -8,7 +8,7 @@ import { UserRole } from '@/app/generated/prisma'
 // GET - Get single destination for admin
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -32,7 +32,7 @@ export async function GET(
       )
     }
     
-    const { id } = params
+    const { id } = await params
     
     const destination = await prisma.destination.findUnique({
       where: { id },
@@ -73,7 +73,7 @@ export async function GET(
 // PUT - Update destination
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -97,7 +97,7 @@ export async function PUT(
       )
     }
     
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const updateData: UpdateDestinationData = body
     
@@ -149,7 +149,7 @@ export async function PUT(
 // DELETE - Delete destination
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -173,7 +173,7 @@ export async function DELETE(
       )
     }
     
-    const { id } = params
+    const { id } = await params
     
     // Check if destination exists and has tours
     const existingDestination = await prisma.destination.findUnique({
