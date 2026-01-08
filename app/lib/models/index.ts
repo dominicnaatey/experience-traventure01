@@ -1,43 +1,58 @@
 // User model exports
-export {
+export type {
   User,
   CreateUserData,
   UpdateUserData,
   UserValidationError,
+} from './user';
+
+export {
   UserValidator,
 } from './user';
 
 // Destination model exports
-export {
+export type {
   Destination,
   CreateDestinationData,
   UpdateDestinationData,
   DestinationValidationError,
+} from './destination';
+
+export {
   DestinationValidator,
 } from './destination';
 
 // Tour model exports
-export {
+export type {
   Tour,
   ItineraryDay,
   CreateTourData,
   UpdateTourData,
   TourValidationError,
+} from './tour';
+
+export {
   TourValidator,
 } from './tour';
 
 // Tour Availability model exports
-export {
+export type {
   TourAvailability,
   CreateTourAvailabilityData,
   UpdateTourAvailabilityData,
   TourAvailabilityValidationError,
+} from './tour-availability';
+
+export {
   TourAvailabilityValidator,
 } from './tour-availability';
 
 // Business rules exports
-export {
+export type {
   BusinessRuleError,
+} from '../validation/business-rules';
+
+export {
   BusinessRuleValidator,
 } from '../validation/business-rules';
 

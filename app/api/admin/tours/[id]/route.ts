@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
-import { TourValidator, UpdateTourData, TourValidationError } from '@/app/lib/models'
+import { TourValidator, UpdateTourData } from '@/app/lib/models'
+import type { TourValidationError } from '@/app/lib/models'
 import { UserRole } from '@/app/generated/prisma'
 
 // GET - Get single tour for admin
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -32,7 +33,7 @@ export async function GET(
       )
     }
     
-    const { id } = params
+    const { id } = await params
     
     const tour = await prisma.tour.findUnique({
       where: { id },
@@ -87,7 +88,7 @@ export async function GET(
 // PUT - Update tour
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -111,7 +112,7 @@ export async function PUT(
       )
     }
     
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const updateData: UpdateTourData = body
     
@@ -166,7 +167,7 @@ export async function PUT(
       where: { id },
       data: {
         ...updateData,
-        itinerary: updateData.itinerary ? updateData.itinerary as any : undefined
+        itinerary: updateData.itinerary ? updateData.itinerary as unknown : undefined
       },
       include: {
         destination: true
@@ -193,7 +194,7 @@ export async function PUT(
 // DELETE - Delete tour
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -217,7 +218,7 @@ export async function DELETE(
       )
     }
     
-    const { id } = params
+    const { id } = await params
     
     // Check if tour exists and has bookings
     const existingTour = await prisma.tour.findUnique({

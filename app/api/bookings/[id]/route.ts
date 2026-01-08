@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 // GET /api/bookings/[id] - Get specific booking
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -20,9 +20,11 @@ export async function GET(
       );
     }
 
+    const { id } = await params;
+
     const booking = await prisma.booking.findUnique({
       where: {
-        id: params.id
+        id: id
       },
       include: {
         tour: {
@@ -74,7 +76,7 @@ export async function GET(
 // PATCH /api/bookings/[id] - Update booking status
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -86,6 +88,7 @@ export async function PATCH(
       );
     }
 
+    const { id } = await params;
     const body = await request.json();
     const { status } = body;
 
@@ -98,7 +101,7 @@ export async function PATCH(
 
     // Get current booking
     const currentBooking = await prisma.booking.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         availability: true
       }
@@ -139,7 +142,7 @@ export async function PATCH(
         });
 
         updatedBooking = await tx.booking.update({
-          where: { id: params.id },
+          where: { id: id },
           data: { status },
           include: {
             tour: {
@@ -165,7 +168,7 @@ export async function PATCH(
         });
 
         updatedBooking = await tx.booking.update({
-          where: { id: params.id },
+          where: { id: id },
           data: { status },
           include: {
             tour: {
@@ -181,7 +184,7 @@ export async function PATCH(
     } else {
       // Simple status update without slot changes
       updatedBooking = await prisma.booking.update({
-        where: { id: params.id },
+        where: { id: id },
         data: { status },
         include: {
           tour: {

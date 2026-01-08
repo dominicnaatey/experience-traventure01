@@ -4,9 +4,10 @@ import { AvailabilityService } from '../../../../lib/services/availability';
 // GET /api/tours/[id]/availability - Check tour availability
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { searchParams } = new URL(request.url);
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
@@ -35,13 +36,13 @@ export async function GET(
     }
 
     const availabilities = await AvailabilityService.checkAvailability(
-      params.id,
+      id,
       startDateObj,
       endDateObj
     );
 
     return NextResponse.json({
-      tourId: params.id,
+      tourId: id,
       availabilities
     });
   } catch (error) {

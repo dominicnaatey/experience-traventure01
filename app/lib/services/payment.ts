@@ -1,6 +1,7 @@
 import { prisma } from '@/app/lib/prisma';
 import { PaymentMethod, PaymentProvider, PaymentStatus, Payment } from '@/app/generated/prisma';
 import { BusinessRuleValidator } from '@/app/lib/validation/business-rules';
+import { AdminNotificationService } from './admin-notification';
 
 export interface PaymentInitData {
   bookingId: string;
@@ -141,12 +142,38 @@ export class PaymentService {
         status,
         providerTransactionId: providerTransactionId || undefined
       },
-      include: { booking: true }
+      include: { 
+        booking: {
+          include: {
+            user: { select: { name: true, email: true } },
+            tour: { select: { title: true } }
+          }
+        }
+      }
     });
 
     // Update booking status based on payment status
     if (status === 'SUCCESS' && payment.booking.status === 'PENDING') {
       await this.confirmBooking(payment.bookingId);
+    }
+
+    // Send admin notification for failed or disputed payments
+    if (status === 'FAILED' || status === 'DISPUTED') {
+      try {
+        await AdminNotificationService.sendPaymentFailureNotification({
+          type: status === 'FAILED' ? 'PAYMENT_FAILURE' : 'PAYMENT_DISPUTE',
+          paymentId: payment.id,
+          bookingId: payment.bookingId,
+          amount: payment.amount,
+          customerName: payment.booking.user.name || 'Unknown',
+          customerEmail: payment.booking.user.email,
+          tourTitle: payment.booking.tour.title,
+          provider: payment.provider
+        });
+      } catch (notificationError) {
+        console.error('Failed to send payment failure notification:', notificationError);
+        // Don't fail the payment update if notification fails
+      }
     }
 
     return payment;

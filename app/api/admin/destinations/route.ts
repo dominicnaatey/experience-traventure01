@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
-import { DestinationValidator, CreateDestinationData, DestinationValidationError } from '@/app/lib/models'
+import { DestinationValidator, CreateDestinationData } from '@/app/lib/models'
+import type { DestinationValidationError } from '@/app/lib/models'
 import { UserRole } from '@/app/generated/prisma'
 
 // GET - List all destinations for admin
