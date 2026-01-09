@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../../auth/[...nextauth]/route'
-import { PrismaClient } from '@prisma/client'
+import { authOptions } from '@/app/lib/auth'
+import { prisma } from '@/app/lib/prisma'
+import { BookingStatus } from '@/app/generated/prisma'
 
-const prisma = new PrismaClient()
-
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions)
     
@@ -35,7 +34,7 @@ export async function GET(request: NextRequest) {
       prisma.booking.count({
         where: { 
           userId,
-          status: 'confirmed'
+          status: BookingStatus.CONFIRMED
         }
       }),
       
@@ -43,7 +42,7 @@ export async function GET(request: NextRequest) {
       prisma.booking.count({
         where: { 
           userId,
-          status: 'pending'
+          status: BookingStatus.PENDING
         }
       }),
       
@@ -51,7 +50,7 @@ export async function GET(request: NextRequest) {
       prisma.booking.aggregate({
         where: { 
           userId,
-          status: 'confirmed'
+          status: BookingStatus.CONFIRMED
         },
         _sum: {
           totalPrice: true
@@ -62,7 +61,7 @@ export async function GET(request: NextRequest) {
       prisma.booking.count({
         where: {
           userId,
-          status: 'confirmed',
+          status: BookingStatus.CONFIRMED,
           availability: {
             startDate: {
               gte: new Date()
@@ -76,7 +75,7 @@ export async function GET(request: NextRequest) {
       totalBookings,
       confirmedBookings,
       pendingBookings,
-      totalSpent: totalSpentResult._sum.totalPrice || 0,
+      totalSpent: totalSpentResult._sum?.totalPrice || 0,
       upcomingTours
     }
 
