@@ -3,11 +3,11 @@ export type {
   User,
   CreateUserData,
   UpdateUserData,
-  UserValidationError,
 } from './user';
 
 export {
   UserValidator,
+  UserValidationError,
 } from './user';
 
 // Destination model exports
@@ -15,11 +15,11 @@ export type {
   Destination,
   CreateDestinationData,
   UpdateDestinationData,
-  DestinationValidationError,
 } from './destination';
 
 export {
   DestinationValidator,
+  DestinationValidationError,
 } from './destination';
 
 // Tour model exports
@@ -28,11 +28,11 @@ export type {
   ItineraryDay,
   CreateTourData,
   UpdateTourData,
-  TourValidationError,
 } from './tour';
 
 export {
   TourValidator,
+  TourValidationError,
 } from './tour';
 
 // Tour Availability model exports
@@ -40,11 +40,11 @@ export type {
   TourAvailability,
   CreateTourAvailabilityData,
   UpdateTourAvailabilityData,
-  TourAvailabilityValidationError,
 } from './tour-availability';
 
 export {
   TourAvailabilityValidator,
+  TourAvailabilityValidationError,
 } from './tour-availability';
 
 // Business rules exports
@@ -62,11 +62,11 @@ export type {
   CreateContentData,
   UpdateContentData,
   ContentVersion,
-  ContentValidationError,
 } from './content';
 
 export {
   ContentValidator,
+  ContentValidationError,
 } from './content';
 
 // Re-export Prisma enums for convenience

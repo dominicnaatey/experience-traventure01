@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
-import { TourValidator, CreateTourData } from '@/app/lib/models'
-import type { TourValidationError } from '@/app/lib/models'
+import { TourValidator, CreateTourData, TourValidationError } from '@/app/lib/models'
 import { UserRole } from '@/app/generated/prisma'
 
 // GET - List all tours for admin (including inactive)
@@ -125,7 +124,7 @@ export async function POST(request: NextRequest) {
     const tour = await prisma.tour.create({
       data: {
         ...tourData,
-        itinerary: tourData.itinerary as unknown // Prisma handles JSON serialization
+        itinerary: JSON.parse(JSON.stringify(tourData.itinerary)) // Prisma handles JSON serialization
       },
       include: {
         destination: true

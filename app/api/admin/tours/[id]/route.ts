@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
-import { TourValidator, UpdateTourData } from '@/app/lib/models'
-import type { TourValidationError } from '@/app/lib/models'
+import { TourValidator, UpdateTourData, TourValidationError } from '@/app/lib/models'
 import { UserRole } from '@/app/generated/prisma'
 
 // GET - Get single tour for admin
@@ -167,7 +166,7 @@ export async function PUT(
       where: { id },
       data: {
         ...updateData,
-        itinerary: updateData.itinerary ? updateData.itinerary as unknown : undefined
+        itinerary: updateData.itinerary ? JSON.parse(JSON.stringify(updateData.itinerary)) : undefined
       },
       include: {
         destination: true

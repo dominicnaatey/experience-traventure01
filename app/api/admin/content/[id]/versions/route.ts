@@ -6,7 +6,7 @@ import { ContentService } from '@/app/lib/services/content'
 // GET /api/admin/content/[id]/versions - Get content version history (admin only)
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -18,8 +18,10 @@ export async function GET(
       )
     }
 
+    const { id } = await params
+    
     // Check if content exists
-    const content = await ContentService.getContent(params.id)
+    const content = await ContentService.getContent(id)
     if (!content) {
       return NextResponse.json(
         { error: { code: 'NOT_FOUND', message: 'Content not found' } },
@@ -27,7 +29,7 @@ export async function GET(
       )
     }
 
-    const versions = await ContentService.getContentVersionHistory(params.id)
+    const versions = await ContentService.getContentVersionHistory(id)
     return NextResponse.json(versions)
 
   } catch (error) {

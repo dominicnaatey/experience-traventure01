@@ -7,7 +7,7 @@ import { UpdateContentData, ContentValidationError } from '@/app/lib/models/cont
 // GET /api/admin/content/[id] - Get content by ID (admin only)
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -19,7 +19,8 @@ export async function GET(
       )
     }
 
-    const content = await ContentService.getContent(params.id)
+    const { id } = await params
+    const content = await ContentService.getContent(id)
     
     if (!content) {
       return NextResponse.json(
@@ -42,7 +43,7 @@ export async function GET(
 // PUT /api/admin/content/[id] - Update content (admin only)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -62,7 +63,8 @@ export async function PUT(
     if (body.body !== undefined) updateData.body = body.body
     if (body.published !== undefined) updateData.published = body.published
 
-    const content = await ContentService.updateContent(params.id, updateData)
+    const { id } = await params
+    const content = await ContentService.updateContent(id, updateData)
     return NextResponse.json(content)
 
   } catch (error: unknown) {
@@ -92,7 +94,7 @@ export async function PUT(
 // DELETE /api/admin/content/[id] - Delete content (admin only)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -104,7 +106,8 @@ export async function DELETE(
       )
     }
 
-    await ContentService.deleteContent(params.id)
+    const { id } = await params
+    await ContentService.deleteContent(id)
     return NextResponse.json({ message: 'Content deleted successfully' })
 
   } catch (error: unknown) {

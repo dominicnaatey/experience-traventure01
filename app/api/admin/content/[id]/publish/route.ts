@@ -6,7 +6,7 @@ import { ContentService } from '@/app/lib/services/content'
 // POST /api/admin/content/[id]/publish - Publish content (admin only)
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -18,7 +18,8 @@ export async function POST(
       )
     }
 
-    const content = await ContentService.publishContent(params.id)
+    const { id } = await params
+    const content = await ContentService.publishContent(id)
     return NextResponse.json(content)
 
   } catch (error: unknown) {
@@ -41,7 +42,7 @@ export async function POST(
 // DELETE /api/admin/content/[id]/publish - Unpublish content (admin only)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -53,7 +54,8 @@ export async function DELETE(
       )
     }
 
-    const content = await ContentService.unpublishContent(params.id)
+    const { id } = await params
+    const content = await ContentService.unpublishContent(id)
     return NextResponse.json(content)
 
   } catch (error: unknown) {

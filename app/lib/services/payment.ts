@@ -175,11 +175,11 @@ export class PaymentService {
       await this.confirmBooking(payment.bookingId);
     }
 
-    // Send admin notification for failed or disputed payments
-    if (status === 'FAILED' || status === 'DISPUTED') {
+    // Send admin notification for failed payments
+    if (status === 'FAILED') {
       try {
         await AdminNotificationService.sendPaymentFailureNotification({
-          type: status === 'FAILED' ? 'PAYMENT_FAILURE' : 'PAYMENT_DISPUTE',
+          type: 'PAYMENT_FAILURE',
           paymentId: payment.id,
           bookingId: payment.bookingId,
           amount: payment.amount,

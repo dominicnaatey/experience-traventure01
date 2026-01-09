@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../lib/auth';
-import { BookingService } from '../../../lib/services/booking';
+import { authOptions } from '@/app/lib/auth';
+import { BookingService } from '@/app/lib/services/booking';
 
 // GET /api/bookings/history - Get user's booking history
 export async function GET(request: NextRequest) {

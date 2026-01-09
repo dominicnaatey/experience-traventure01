@@ -4,10 +4,11 @@ import { ContentService } from '@/app/lib/services/content'
 // GET /api/content/[id] - Get published content by ID (public)
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const content = await ContentService.getPublishedContent(params.id)
+    const { id } = await params
+    const content = await ContentService.getPublishedContent(id)
     
     if (!content) {
       return NextResponse.json(
