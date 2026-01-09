@@ -163,7 +163,7 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
                         <span className="text-white text-sm font-medium">$</span>
                       </div>
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
 
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
                         <span className="text-white text-sm font-medium">📅</span>
                       </div>
@@ -191,7 +191,7 @@ export default function AdminDashboard() {
 
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
                         <span className="text-white text-sm font-medium">🏞️</span>
                       </div>
@@ -206,7 +206,7 @@ export default function AdminDashboard() {
 
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
                         <span className="text-white text-sm font-medium">👥</span>
                       </div>
