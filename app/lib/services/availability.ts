@@ -1,4 +1,5 @@
 import { prisma } from '../prisma';
+import { Prisma } from '../../generated/prisma';
 
 export interface AvailabilityInfo {
   availabilityId: string;
@@ -19,7 +20,7 @@ export class AvailabilityService {
     endDate?: Date
   ): Promise<AvailabilityInfo[]> {
     try {
-      const whereClause: any = {
+      const whereClause: Prisma.TourAvailabilityWhereInput = {
         tourId,
         availableSlots: {
           gt: 0
@@ -141,6 +142,9 @@ export class AvailabilityService {
     limit: number = 10
   ): Promise<AvailabilityInfo[]> {
     const now = new Date();
-    return this.checkAvailability(tourId, now);
+    // Using limit to fetch only required number of availabilities if needed in future
+    // For now checkAvailability returns all valid future dates
+    const allAvailabilities = await this.checkAvailability(tourId, now);
+    return allAvailabilities.slice(0, limit);
   }
 }
