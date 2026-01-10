@@ -151,7 +151,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <div className="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
                       <span className="text-white text-sm font-medium">📅</span>
                     </div>
@@ -165,7 +165,7 @@ export default function Dashboard() {
 
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <div className="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
                       <span className="text-white text-sm font-medium">✓</span>
                     </div>
@@ -179,7 +179,7 @@ export default function Dashboard() {
 
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <div className="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
                       <span className="text-white text-sm font-medium">⏳</span>
                     </div>
@@ -193,7 +193,7 @@ export default function Dashboard() {
 
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <div className="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
                       <span className="text-white text-sm font-medium">$</span>
                     </div>
@@ -214,7 +214,7 @@ export default function Dashboard() {
               className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
             >
               <div className="flex items-center">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🌍</span>
                   </div>
@@ -231,7 +231,7 @@ export default function Dashboard() {
               className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
             >
               <div className="flex items-center">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">📋</span>
                   </div>
@@ -245,7 +245,7 @@ export default function Dashboard() {
 
             <div className="bg-white p-6 rounded-lg shadow">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">👤</span>
                   </div>

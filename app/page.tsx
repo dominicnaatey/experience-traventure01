@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 
 interface Tour {
@@ -86,7 +87,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+      <section className="bg-linear-to-r from-indigo-600 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -169,12 +170,14 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {featuredTours.map((tour) => (
                 <div key={tour.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-48 bg-gray-200">
+                  <div className="h-48 bg-gray-200 relative">
                     {tour.images && tour.images.length > 0 ? (
-                      <img
+                      <Image
                         src={tour.images[0]}
                         alt={tour.title}
-                        className="w-full h-full object-cover"
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400">
