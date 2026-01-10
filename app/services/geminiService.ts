@@ -2,6 +2,11 @@
 import { GoogleGenAI } from "@google/genai";
 import { SearchResult } from "../types";
 
+interface GroundingChunk {
+  web?: { uri: string; title: string };
+  maps?: { uri: string; title: string };
+}
+
 export class TravelGeminiService {
   private getAI() {
     return new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || "" });
@@ -20,18 +25,19 @@ export class TravelGeminiService {
                 latLng: { latitude: lat, longitude: lng }
             }
           }
-        } : undefined
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any : undefined
       },
     });
 
     const text = response.text || "No information found.";
-    const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
+    const chunks = (response.candidates?.[0]?.groundingMetadata?.groundingChunks || []) as GroundingChunk[];
     
-    const sources = chunks.map((chunk: any) => {
+    const sources = chunks.map((chunk) => {
       if (chunk.web) return { web: { uri: chunk.web.uri, title: chunk.web.title } };
       if (chunk.maps) return { maps: { uri: chunk.maps.uri, title: chunk.maps.title } };
       return null;
-    }).filter(Boolean) as any[];
+    }).filter(Boolean) as SearchResult['sources'];
 
     return { text, sources };
   }

@@ -39,7 +39,7 @@ export default function Home() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-        (err) => console.log("Geolocation denied or unavailable")
+        () => console.log("Geolocation denied or unavailable")
       );
     }
   }, []);
