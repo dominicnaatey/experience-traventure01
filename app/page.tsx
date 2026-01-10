@@ -2,16 +2,16 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Destinations from './components/Destinations';
-import TourPackages from './components/TourPackages';
-import ValueProps from './components/ValueProps';
-import Testimonials from './components/Testimonials';
-import Newsletter from './components/Newsletter';
-import Footer from './components/Footer';
-import SearchResultModal from './components/SearchResultModal';
-import ItineraryModal from './components/ItineraryModal';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import Destinations from '../components/Destinations';
+import TourPackages from '../components/TourPackages';
+import ValueProps from '../components/ValueProps';
+import Testimonials from '../components/Testimonials';
+import Newsletter from '../components/Newsletter';
+import Footer from '../components/Footer';
+import SearchResultModal from '../components/SearchResultModal';
+import ItineraryModal from '../components/ItineraryModal';
 import { geminiService } from './services/geminiService';
 import { SearchResult, TourPackage } from './types';
 

@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { TESTIMONIALS } from '../lib/constants';
+import { TESTIMONIALS } from '../app/lib/constants';
 
 const Testimonials: React.FC = () => {
   return (

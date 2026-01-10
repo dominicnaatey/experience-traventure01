@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { SearchResult } from '../types';
+import { SearchResult } from '../app/types';
 
 interface SearchResultModalProps {
   result: SearchResult | null;

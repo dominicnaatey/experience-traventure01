@@ -2,8 +2,8 @@
 'use client';
 
 import React from 'react';
-import { TOUR_PACKAGES } from '../lib/constants';
-import { TourPackage } from '../types';
+import { TOUR_PACKAGES } from '../app/lib/constants';
+import { TourPackage } from '../app/types';
 
 interface TourPackagesProps {
   onGenerateItinerary: (pkg: TourPackage) => void;

@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { FEATURED_DESTINATIONS } from '../lib/constants';
+import { FEATURED_DESTINATIONS } from '../app/lib/constants';
 
 const Destinations: React.FC = () => {
   return (
