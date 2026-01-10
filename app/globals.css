@@ -10,6 +10,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: #00653A;
+  --color-accent: #E04819;
+  --font-display: var(--font-display), 'Oswald', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
