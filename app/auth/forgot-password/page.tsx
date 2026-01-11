@@ -34,7 +34,7 @@ export default function ForgotPassword() {
 
       setMessage(data.message)
       setSubmitted(true)
-    } catch (error) {
+    } catch {
       setError('An error occurred while sending the reset email')
     } finally {
       setLoading(false)
@@ -55,7 +55,7 @@ export default function ForgotPassword() {
             <div className="mt-6">
               <Link
                 href="/auth/signin"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-primary hover:text-primary/90"
               >
                 Back to sign in
               </Link>
@@ -74,7 +74,7 @@ export default function ForgotPassword() {
             Forgot your password?
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your email address and we&apos;ll send you a link to reset your password.
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ export default function ForgotPassword() {
               type="email"
               autoComplete="email"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -103,7 +103,7 @@ export default function ForgotPassword() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
             >
               {loading ? 'Sending...' : 'Send reset link'}
             </button>
@@ -112,7 +112,7 @@ export default function ForgotPassword() {
           <div className="text-center">
             <Link
               href="/auth/signin"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-primary hover:text-primary/90"
             >
               Back to sign in
             </Link>

@@ -40,13 +40,13 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           {/* Destination */}
           <div className="flex-1 relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-blue-600">location_on</span>
+              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-primary">location_on</span>
             </div>
             <input 
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-600/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium" 
+              className="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium" 
               placeholder="Where do you want to go?" 
               type="text"
             />
@@ -54,10 +54,10 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           {/* Date */}
           <div className="flex-1 md:max-w-[200px] relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-blue-600">calendar_month</span>
+              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-primary">calendar_month</span>
             </div>
             <input 
-              className="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-600/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium" 
+              className="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium" 
               placeholder="Add dates" 
               type="text"
               onFocus={(e) => (e.target.type = "date")}
@@ -67,9 +67,9 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           {/* Travelers */}
           <div className="flex-1 md:max-w-[180px] relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-blue-600">group</span>
+              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-primary">group</span>
             </div>
-            <select className="block w-full pl-10 pr-8 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-600/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium appearance-none cursor-pointer">
+            <select className="block w-full pl-10 pr-8 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium appearance-none cursor-pointer">
               <option disabled defaultValue="">Travelers</option>
               <option value="1">1 Guest</option>
               <option value="2">2 Guests</option>
@@ -84,7 +84,7 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           <button 
             onClick={handleSearch}
             disabled={isLoading}
-            className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full md:w-auto px-8 py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

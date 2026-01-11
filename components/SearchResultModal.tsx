@@ -13,11 +13,11 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
   if (!result) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-blue-600">auto_awesome</span>
+            <span className="material-symbols-outlined text-primary">auto_awesome</span>
             <h3 className="text-xl font-bold dark:text-white">AI Travel Insights</h3>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
@@ -26,7 +26,7 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
         </div>
         
         <div className="p-8 overflow-y-auto">
-          <div className="prose prose-blue dark:prose-invert max-w-none">
+          <div className="prose prose-stone dark:prose-invert max-w-none prose-a:text-primary prose-headings:text-primary">
             <div className="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
               {result.text}
             </div>
@@ -50,7 +50,7 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
                       className={`text-xs px-3 py-1.5 rounded-full transition-colors font-medium flex items-center gap-1 ${
                         isMap 
                         ? 'bg-green-100 text-green-700 hover:bg-green-600 hover:text-white' 
-                        : 'bg-blue-600/10 text-blue-600 hover:bg-blue-600 hover:text-white'
+                        : 'bg-primary/10 text-primary hover:bg-primary hover:text-white'
                       }`}
                     >
                       <span className="material-symbols-outlined text-[14px]">
@@ -68,7 +68,7 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
         <div className="p-6 bg-gray-50 dark:bg-gray-900/50 flex justify-end">
           <button 
             onClick={onClose}
-            className="px-6 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-all"
+            className="px-6 py-2 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all"
           >
             Start Planning
           </button>

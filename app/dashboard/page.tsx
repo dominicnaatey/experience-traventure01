@@ -88,7 +88,7 @@ export default function Dashboard() {
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -103,7 +103,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="text-xl font-semibold text-indigo-600">
+              <Link href="/" className="text-xl font-semibold text-primary">
                 Travel & Tours
               </Link>
             </div>
@@ -122,12 +122,12 @@ export default function Dashboard() {
               <span className="text-gray-700">
                 Welcome, {session.user?.name}
               </span>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
                 {session.user?.role}
               </span>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium"
               >
                 Sign out
               </button>
@@ -152,7 +152,7 @@ export default function Dashboard() {
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="flex items-center">
                   <div className="shrink-0">
-                    <div className="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
+                    <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
                       <span className="text-white text-sm font-medium">📅</span>
                     </div>
                   </div>
@@ -215,7 +215,7 @@ export default function Dashboard() {
             >
               <div className="flex items-center">
                 <div className="shrink-0">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🌍</span>
                   </div>
                 </div>
@@ -265,7 +265,7 @@ export default function Dashboard() {
                 <h2 className="text-lg font-medium text-gray-900">Recent Bookings</h2>
                 <Link
                   href="/bookings"
-                  className="text-sm text-indigo-600 hover:text-indigo-500"
+                  className="text-sm text-primary hover:text-primary/80"
                 >
                   View all
                 </Link>
@@ -283,7 +283,7 @@ export default function Dashboard() {
                   <p className="text-gray-500 mb-6">Start exploring our amazing tours and make your first booking!</p>
                   <Link
                     href="/tours"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md font-medium"
+                    className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-md font-medium"
                   >
                     Browse Tours
                   </Link>
@@ -309,7 +309,7 @@ export default function Dashboard() {
                             <p className="text-sm text-gray-500">
                               Tour Date: {formatDate(booking.availability.startDate)}
                             </p>
-                            <p className="text-lg font-semibold text-indigo-600">
+                            <p className="text-lg font-semibold text-primary">
                               ${booking.totalPrice}
                             </p>
                           </div>
@@ -323,12 +323,12 @@ export default function Dashboard() {
           </div>
 
           {session.user?.role === 'ADMIN' && (
-            <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-              <h3 className="text-lg font-medium text-blue-900 mb-2">Admin Features</h3>
-              <p className="text-blue-700 mb-4">You have admin access to manage tours, bookings, and users.</p>
+            <div className="mt-8 p-4 bg-primary/5 rounded-lg">
+              <h3 className="text-lg font-medium text-primary mb-2">Admin Features</h3>
+              <p className="text-gray-700 mb-4">You have admin access to manage tours, bookings, and users.</p>
               <Link
                 href="/admin"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium"
               >
                 Go to Admin Dashboard
               </Link>

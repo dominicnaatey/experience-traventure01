@@ -38,22 +38,22 @@ const TourPackages: React.FC<TourPackagesProps> = ({ onGenerateItinerary, isGene
                 <span className="w-1 h-1 rounded-full bg-gray-300 mx-1"></span>
                 <span>{pkg.duration}</span>
               </div>
-              <h3 className="text-lg font-bold text-[#111318] dark:text-white mb-2 group-hover:text-blue-600 transition-colors">{pkg.title}</h3>
+              <h3 className="text-lg font-bold text-[#111318] dark:text-white mb-2 group-hover:text-primary transition-colors">{pkg.title}</h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-4">
                 {pkg.description}
               </p>
               <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
                 <div>
                   <p className="text-xs text-gray-500">From</p>
-                  <p className="text-xl font-bold text-blue-600">${pkg.price}</p>
+                  <p className="text-xl font-bold text-primary">${pkg.price}</p>
                 </div>
                 <button 
                   onClick={() => onGenerateItinerary(pkg)}
                   disabled={isGenerating === pkg.id}
-                  className="px-5 py-2.5 bg-gray-100 hover:bg-blue-600 hover:text-white text-[#111318] dark:text-white dark:bg-gray-700 rounded-xl font-semibold text-sm transition-all flex items-center gap-2"
+                  className="px-5 py-2.5 bg-gray-100 hover:bg-primary hover:text-white text-[#111318] dark:text-white dark:bg-gray-700 rounded-xl font-semibold text-sm transition-all flex items-center gap-2"
                 >
                   {isGenerating === pkg.id ? (
-                    <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                   ) : 'View Details'}
                 </button>
               </div>

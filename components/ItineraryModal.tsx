@@ -15,7 +15,7 @@ const ItineraryModal: React.FC<ItineraryModalProps> = ({ itinerary, onClose, tit
   return (
     <div className="fixed inset-0 z-70 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
       <div className="bg-white dark:bg-gray-800 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
-        <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-blue-600 text-white">
+        <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-primary text-white">
           <div>
             <h3 className="text-xl font-bold">Your Custom Itinerary</h3>
             <p className="text-sm opacity-90">{title}</p>
@@ -26,7 +26,7 @@ const ItineraryModal: React.FC<ItineraryModalProps> = ({ itinerary, onClose, tit
         </div>
         
         <div className="p-8 overflow-y-auto bg-gray-50 dark:bg-gray-900">
-          <div className="prose prose-blue dark:prose-invert max-w-none">
+          <div className="prose prose-slate dark:prose-invert max-w-none">
             <div className="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap font-display">
               {itinerary}
             </div>

@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface Tour {
@@ -58,17 +59,8 @@ export default function TourDetailPage() {
   const [selectedAvailability, setSelectedAvailability] = useState<string>('')
   const [travelersCount, setTravelersCount] = useState(1)
   const [bookingLoading, setBookingLoading] = useState(false)
-  const [showBookingForm, setShowBookingForm] = useState(false)
 
-  useEffect(() => {
-    if (tourId) {
-      fetchTourDetails()
-      fetchAvailability()
-      fetchReviews()
-    }
-  }, [tourId])
-
-  const fetchTourDetails = async () => {
+  const fetchTourDetails = useCallback(async () => {
     try {
       const response = await fetch(`/api/tours/${tourId}`)
       if (!response.ok) throw new Error('Tour not found')
@@ -81,9 +73,9 @@ export default function TourDetailPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [tourId])
 
-  const fetchAvailability = async () => {
+  const fetchAvailability = useCallback(async () => {
     try {
       const response = await fetch(`/api/tours/${tourId}/availability`)
       if (response.ok) {
@@ -93,9 +85,9 @@ export default function TourDetailPage() {
     } catch (err) {
       console.error('Failed to fetch availability:', err)
     }
-  }
+  }, [tourId])
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       const response = await fetch(`/api/tours/${tourId}/reviews`)
       if (response.ok) {
@@ -105,7 +97,15 @@ export default function TourDetailPage() {
     } catch (err) {
       console.error('Failed to fetch reviews:', err)
     }
-  }
+  }, [tourId])
+
+  useEffect(() => {
+    if (tourId) {
+      fetchTourDetails()
+      fetchAvailability()
+      fetchReviews()
+    }
+  }, [tourId, fetchTourDetails, fetchAvailability, fetchReviews])
 
   const handleBooking = async () => {
     if (!session) {
@@ -174,7 +174,7 @@ export default function TourDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -184,7 +184,7 @@ export default function TourDetailPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error || 'Tour not found'}</p>
-          <Link href="/tours" className="text-indigo-600 hover:text-indigo-500">
+          <Link href="/tours" className="text-primary hover:text-primary/80">
             Back to Tours
           </Link>
         </div>
@@ -200,7 +200,7 @@ export default function TourDetailPage() {
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/tours" className="text-indigo-600 hover:text-indigo-500">
+            <Link href="/tours" className="text-primary hover:text-primary/90">
               ← Back to Tours
             </Link>
             <div className="flex items-center space-x-4">
@@ -226,18 +226,23 @@ export default function TourDetailPage() {
             <div className="mb-8">
               {tour.images && tour.images.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <img
-                    src={tour.images[0]}
-                    alt={tour.title}
-                    className="w-full h-64 md:h-80 object-cover rounded-lg"
-                  />
-                  {tour.images.slice(1, 3).map((image, index) => (
-                    <img
-                      key={index}
-                      src={image}
-                      alt={`${tour.title} ${index + 2}`}
-                      className="w-full h-32 md:h-40 object-cover rounded-lg"
+                  <div className="relative w-full h-64 md:h-80">
+                    <Image
+                      src={tour.images[0]}
+                      alt={tour.title}
+                      fill
+                      className="object-cover rounded-lg"
                     />
+                  </div>
+                  {tour.images.slice(1, 3).map((image, index) => (
+                    <div key={index} className="relative w-full h-32 md:h-40">
+                      <Image
+                        src={image}
+                        alt={`${tour.title} ${index + 2}`}
+                        fill
+                        className="object-cover rounded-lg"
+                      />
+                    </div>
                   ))}
                 </div>
               ) : (
@@ -265,19 +270,19 @@ export default function TourDetailPage() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-600">{tour.durationDays}</div>
+                  <div className="text-2xl font-bold text-primary">{tour.durationDays}</div>
                   <div className="text-sm text-gray-500">Days</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-600">{tour.maxGroupSize}</div>
+                  <div className="text-2xl font-bold text-primary">{tour.maxGroupSize}</div>
                   <div className="text-sm text-gray-500">Max Group</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-600">${tour.pricePerPerson}</div>
+                  <div className="text-2xl font-bold text-primary">${tour.pricePerPerson}</div>
                   <div className="text-sm text-gray-500">Per Person</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-600">{reviews.length}</div>
+                  <div className="text-2xl font-bold text-primary">{reviews.length}</div>
                   <div className="text-sm text-gray-500">Reviews</div>
                 </div>
               </div>
@@ -287,7 +292,7 @@ export default function TourDetailPage() {
               {/* Inclusions & Exclusions */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">What's Included</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">What&apos;s Included</h3>
                   <ul className="space-y-2">
                     {tour.inclusions.map((item, index) => (
                       <li key={index} className="flex items-center text-green-700">
@@ -298,7 +303,7 @@ export default function TourDetailPage() {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">What's Not Included</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">What&apos;s Not Included</h3>
                   <ul className="space-y-2">
                     {tour.exclusions.map((item, index) => (
                       <li key={index} className="flex items-center text-red-700">
@@ -317,7 +322,7 @@ export default function TourDetailPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Itinerary</h2>
                 <div className="space-y-6">
                   {tour.itinerary.map((day) => (
-                    <div key={day.day} className="border-l-4 border-indigo-500 pl-4">
+                    <div key={day.day} className="border-l-4 border-primary pl-4">
                       <h3 className="text-lg font-semibold text-gray-900">
                         Day {day.day}: {day.title}
                       </h3>
@@ -364,7 +369,7 @@ export default function TourDetailPage() {
                   <p className="text-gray-600 mb-4">Sign in to book this tour</p>
                   <Link
                     href="/auth/signin"
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md block text-center"
+                    className="w-full bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-md block text-center"
                   >
                     Sign In
                   </Link>
@@ -377,7 +382,7 @@ export default function TourDetailPage() {
                       Select Date
                     </label>
                     <select
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                       value={selectedAvailability}
                       onChange={(e) => setSelectedAvailability(e.target.value)}
                     >
@@ -397,7 +402,7 @@ export default function TourDetailPage() {
                       Number of Travelers
                     </label>
                     <select
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                       value={travelersCount}
                       onChange={(e) => setTravelersCount(parseInt(e.target.value))}
                     >
@@ -420,7 +425,7 @@ export default function TourDetailPage() {
                     <div className="border-t border-gray-200 pt-2">
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-bold">Total</span>
-                        <span className="text-lg font-bold text-indigo-600">${totalPrice}</span>
+                        <span className="text-lg font-bold text-primary">${totalPrice}</span>
                       </div>
                     </div>
                   </div>
@@ -429,13 +434,13 @@ export default function TourDetailPage() {
                   <button
                     onClick={handleBooking}
                     disabled={!selectedAvailability || bookingLoading}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white py-3 px-4 rounded-md font-medium transition-colors"
+                    className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white py-3 px-4 rounded-md font-medium transition-colors"
                   >
                     {bookingLoading ? 'Booking...' : 'Book Now'}
                   </button>
 
                   <p className="text-xs text-gray-500 mt-2 text-center">
-                    You won't be charged yet. Review your booking details first.
+                    You won&apos;t be charged yet. Review your booking details first.
                   </p>
                 </>
               )}

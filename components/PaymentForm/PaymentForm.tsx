@@ -149,7 +149,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
         <div className="bg-gray-50 p-4 rounded-lg mb-6">
           <div className="flex justify-between items-center">
             <span className="text-gray-600">Total Amount</span>
-            <span className="text-2xl font-bold text-indigo-600">${amount}</span>
+            <span className="text-2xl font-bold text-primary">${amount}</span>
           </div>
         </div>
 
@@ -162,7 +162,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                 key={method.id}
                 className={`border rounded-lg p-4 cursor-pointer transition-colors ${
                   selectedMethod?.id === method.id
-                    ? 'border-indigo-500 bg-indigo-50'
+                    ? 'border-primary bg-primary/10'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
                 onClick={() => setSelectedMethod(method)}
@@ -178,7 +178,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                       type="radio"
                       checked={selectedMethod?.id === method.id}
                       onChange={() => setSelectedMethod(method)}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                      className="h-4 w-4 text-primary focus:ring-primary border-gray-300"
                     />
                   </div>
                 </div>
@@ -199,7 +199,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                 <input
                   type="text"
                   placeholder="John Doe"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                   value={cardDetails.name}
                   onChange={(e) => setCardDetails(prev => ({ ...prev, name: e.target.value }))}
                 />
@@ -212,7 +212,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                   type="text"
                   placeholder="1234 5678 9012 3456"
                   maxLength={19}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                   value={cardDetails.number}
                   onChange={(e) => setCardDetails(prev => ({ ...prev, number: formatCardNumber(e.target.value) }))}
                 />
@@ -226,7 +226,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                     type="text"
                     placeholder="MM/YY"
                     maxLength={5}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                     value={cardDetails.expiry}
                     onChange={(e) => setCardDetails(prev => ({ ...prev, expiry: formatExpiry(e.target.value) }))}
                   />
@@ -239,7 +239,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                     type="text"
                     placeholder="123"
                     maxLength={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                     value={cardDetails.cvv}
                     onChange={(e) => setCardDetails(prev => ({ ...prev, cvv: e.target.value.replace(/\D/g, '') }))}
                   />
@@ -258,7 +258,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                   Mobile Network
                 </label>
                 <select
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                   value={mobileDetails.network}
                   onChange={(e) => setMobileDetails(prev => ({ ...prev, network: e.target.value }))}
                 >
@@ -276,7 +276,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                 <input
                   type="tel"
                   placeholder="+233 XX XXX XXXX"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                   value={mobileDetails.phone}
                   onChange={(e) => setMobileDetails(prev => ({ ...prev, phone: e.target.value }))}
                 />
@@ -286,16 +286,16 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
         )}
 
         {/* Security Notice */}
-        <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+        <div className="bg-primary/5 border border-primary/20 rounded-md p-4 mb-6">
           <div className="flex">
             <div className="shrink-0">
-              <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+              <svg className="h-5 w-5 text-primary/60" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
               </svg>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-blue-800">Secure Payment</h3>
-              <p className="mt-1 text-sm text-blue-700">
+              <h3 className="text-sm font-medium text-primary">Secure Payment</h3>
+              <p className="mt-1 text-sm text-primary/80">
                 Your payment information is encrypted and secure. We never store your card details.
               </p>
             </div>
@@ -306,7 +306,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
         <button
           onClick={handlePayment}
           disabled={!selectedMethod || loading}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white py-3 px-4 rounded-md font-medium transition-colors"
+          className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white py-3 px-4 rounded-md font-medium transition-colors"
         >
           {loading ? 'Processing...' : `Pay $${amount}`}
         </button>

@@ -160,7 +160,7 @@ export default function BookingDetailPage() {
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -174,7 +174,7 @@ export default function BookingDetailPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error || 'Booking not found'}</p>
-          <Link href="/bookings" className="text-indigo-600 hover:text-indigo-500">
+          <Link href="/bookings" className="text-primary hover:text-primary/80">
             Back to Bookings
           </Link>
         </div>
@@ -188,7 +188,7 @@ export default function BookingDetailPage() {
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/bookings" className="text-indigo-600 hover:text-indigo-500">
+            <Link href="/bookings" className="text-primary hover:text-primary/80">
               ← Back to Bookings
             </Link>
             <div className="flex items-center space-x-4">
@@ -322,7 +322,7 @@ export default function BookingDetailPage() {
                 <div className="border-t border-gray-200 pt-2">
                   <div className="flex justify-between">
                     <span className="text-lg font-bold">Total Amount:</span>
-                    <span className="text-lg font-bold text-indigo-600">${booking.totalPrice}</span>
+                    <span className="text-lg font-bold text-primary">${booking.totalPrice}</span>
                   </div>
                 </div>
               </div>
@@ -370,7 +370,7 @@ export default function BookingDetailPage() {
               <button
                 onClick={handlePayment}
                 disabled={paymentLoading}
-                className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-md font-medium"
+                className="bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white px-6 py-3 rounded-md font-medium"
               >
                 {paymentLoading ? 'Processing...' : 'Pay Now'}
               </button>

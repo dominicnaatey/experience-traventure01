@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -43,20 +43,7 @@ export default function AdminBookingsPage() {
   const [error, setError] = useState('')
   const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'cancelled'>('all')
 
-  useEffect(() => {
-    if (status === 'loading') return
-    if (!session) {
-      router.push('/auth/signin')
-      return
-    }
-    if (session.user?.role !== 'ADMIN') {
-      router.push('/dashboard')
-      return
-    }
-    fetchBookings()
-  }, [session, status, router, filter])
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -73,7 +60,20 @@ export default function AdminBookingsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [filter])
+
+  useEffect(() => {
+    if (status === 'loading') return
+    if (!session) {
+      router.push('/auth/signin')
+      return
+    }
+    if (session.user?.role !== 'ADMIN') {
+      router.push('/dashboard')
+      return
+    }
+    fetchBookings()
+  }, [session, status, router, fetchBookings])
 
   const handleStatusUpdate = async (bookingId: string, newStatus: string) => {
     if (!confirm(`Are you sure you want to ${newStatus} this booking?`)) {
@@ -137,7 +137,7 @@ export default function AdminBookingsPage() {
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -157,7 +157,7 @@ export default function AdminBookingsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/admin" className="text-indigo-600 hover:text-indigo-500">
+              <Link href="/admin" className="text-primary hover:text-primary/80">
                 ← Admin Dashboard
               </Link>
               <h1 className="text-xl font-semibold text-gray-900">Booking Management</h1>
@@ -194,7 +194,7 @@ export default function AdminBookingsPage() {
               onClick={() => setFilter('all')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'all'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -204,7 +204,7 @@ export default function AdminBookingsPage() {
               onClick={() => setFilter('pending')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'pending'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -214,7 +214,7 @@ export default function AdminBookingsPage() {
               onClick={() => setFilter('confirmed')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'confirmed'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -224,7 +224,7 @@ export default function AdminBookingsPage() {
               onClick={() => setFilter('cancelled')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'cancelled'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -238,7 +238,7 @@ export default function AdminBookingsPage() {
             <p className="text-red-600 mb-4">{error}</p>
             <button
               onClick={fetchBookings}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md"
             >
               Try Again
             </button>
@@ -286,7 +286,7 @@ export default function AdminBookingsPage() {
                           <div>
                             <p><span className="font-medium">Destination:</span> {booking.tour.destination.name}, {booking.tour.destination.country}</p>
                             <p><span className="font-medium">Tour Dates:</span> {formatTourDate(booking.availability.startDate)} - {formatTourDate(booking.availability.endDate)}</p>
-                            <p><span className="font-medium">Total Price:</span> <span className="text-lg font-bold text-indigo-600">${booking.totalPrice}</span></p>
+                            <p><span className="font-medium">Total Price:</span> <span className="text-lg font-bold text-primary">${booking.totalPrice}</span></p>
                           </div>
                         </div>
                         
@@ -299,7 +299,7 @@ export default function AdminBookingsPage() {
                             <Link
                               href={`/bookings/${booking.id}`}
                               target="_blank"
-                              className="text-indigo-600 hover:text-indigo-500 text-sm font-medium"
+                              className="text-primary hover:text-primary/80 text-sm font-medium"
                             >
                               View Details
                             </Link>

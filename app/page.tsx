@@ -88,7 +88,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col selection:bg-blue-600/20 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen flex flex-col selection:bg-primary/20 ${isDarkMode ? 'dark' : ''}`}>
       <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       
       <main className="flex-1">

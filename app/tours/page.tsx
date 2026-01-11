@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 
 interface Tour {
@@ -35,12 +36,7 @@ export default function ToursPage() {
   const [filters, setFilters] = useState<TourFilters>({})
   const [destinations, setDestinations] = useState<{id: string, name: string, country: string}[]>([])
 
-  useEffect(() => {
-    fetchTours()
-    fetchDestinations()
-  }, [filters])
-
-  const fetchTours = async () => {
+  const fetchTours = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -62,7 +58,12 @@ export default function ToursPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [filters])
+
+  useEffect(() => {
+    fetchTours()
+    fetchDestinations()
+  }, [fetchTours])
 
   const fetchDestinations = async () => {
     try {
@@ -118,7 +119,7 @@ export default function ToursPage() {
                   <Link href="/auth/signin" className="text-gray-700 hover:text-gray-900">
                     Sign In
                   </Link>
-                  <Link href="/auth/signup" className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                  <Link href="/auth/signup" className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium">
                     Sign Up
                   </Link>
                 </>
@@ -147,7 +148,7 @@ export default function ToursPage() {
                 type="text"
                 id="search"
                 placeholder="Search by title or destination..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                 value={filters.search || ''}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
               />
@@ -160,7 +161,7 @@ export default function ToursPage() {
               </label>
               <select
                 id="destination"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                 value={filters.destination || ''}
                 onChange={(e) => handleFilterChange('destination', e.target.value)}
               >
@@ -182,7 +183,7 @@ export default function ToursPage() {
                 type="number"
                 id="maxPrice"
                 placeholder="Max price"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                 value={filters.maxPrice || ''}
                 onChange={(e) => handleFilterChange('maxPrice', e.target.value ? parseInt(e.target.value) : undefined)}
               />
@@ -195,7 +196,7 @@ export default function ToursPage() {
               </label>
               <select
                 id="difficulty"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                 value={filters.difficulty || ''}
                 onChange={(e) => handleFilterChange('difficulty', e.target.value)}
               >
@@ -211,7 +212,7 @@ export default function ToursPage() {
           <div className="mt-4 flex justify-end">
             <button
               onClick={clearFilters}
-              className="text-sm text-indigo-600 hover:text-indigo-500"
+              className="text-sm text-primary hover:text-primary/80"
             >
               Clear all filters
             </button>
@@ -221,14 +222,14 @@ export default function ToursPage() {
         {/* Tours Grid */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : error ? (
           <div className="text-center py-12">
             <p className="text-red-600">{error}</p>
             <button
               onClick={fetchTours}
-              className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
+              className="mt-4 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md"
             >
               Try Again
             </button>
@@ -238,7 +239,7 @@ export default function ToursPage() {
             <p className="text-gray-500">No tours found matching your criteria.</p>
             <button
               onClick={clearFilters}
-              className="mt-4 text-indigo-600 hover:text-indigo-500"
+              className="mt-4 text-primary hover:text-primary/80"
             >
               Clear filters to see all tours
             </button>
@@ -249,18 +250,19 @@ export default function ToursPage() {
               <div key={tour.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 {/* Tour Image */}
                 <div className="h-48 bg-gray-200 relative">
-                  {tour.images && tour.images.length > 0 ? (
-                    <img
-                      src={tour.images[0]}
-                      alt={tour.title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      No Image Available
-                    </div>
-                  )}
-                  {tour.difficulty && (
+                {tour.images && tour.images.length > 0 ? (
+                  <Image
+                    src={tour.images[0]}
+                    alt={tour.title}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    No Image Available
+                  </div>
+                )}
+                {tour.difficulty && (
                     <span className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(tour.difficulty)}`}>
                       {tour.difficulty}
                     </span>
@@ -287,7 +289,7 @@ export default function ToursPage() {
                     <div className="text-sm text-gray-500">
                       {tour.durationDays} day{tour.durationDays !== 1 ? 's' : ''}
                     </div>
-                    <div className="text-lg font-bold text-indigo-600">
+                    <div className="text-lg font-bold text-primary">
                       ${tour.pricePerPerson}
                       <span className="text-sm font-normal text-gray-500">/person</span>
                     </div>
@@ -295,7 +297,7 @@ export default function ToursPage() {
                   
                   <Link
                     href={`/tours/${tour.id}`}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md text-center block transition-colors"
+                    className="w-full bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-md text-center block transition-colors"
                   >
                     View Details
                   </Link>

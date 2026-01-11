@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -32,20 +32,7 @@ export default function AdminToursPage() {
   const [error, setError] = useState('')
   const [filter, setFilter] = useState<'all' | 'active' | 'inactive'>('all')
 
-  useEffect(() => {
-    if (status === 'loading') return
-    if (!session) {
-      router.push('/auth/signin')
-      return
-    }
-    if (session.user?.role !== 'ADMIN') {
-      router.push('/dashboard')
-      return
-    }
-    fetchTours()
-  }, [session, status, router, filter])
-
-  const fetchTours = async () => {
+  const fetchTours = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
@@ -62,7 +49,20 @@ export default function AdminToursPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [filter])
+
+  useEffect(() => {
+    if (status === 'loading') return
+    if (!session) {
+      router.push('/auth/signin')
+      return
+    }
+    if (session.user?.role !== 'ADMIN') {
+      router.push('/dashboard')
+      return
+    }
+    fetchTours()
+  }, [session, status, router, fetchTours])
 
   const handleStatusToggle = async (tourId: string, currentStatus: string) => {
     const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
@@ -132,7 +132,7 @@ export default function AdminToursPage() {
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -148,14 +148,14 @@ export default function AdminToursPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/admin" className="text-indigo-600 hover:text-indigo-500">
+              <Link href="/admin" className="text-primary hover:text-primary/80">
                 ← Admin Dashboard
               </Link>
               <h1 className="text-xl font-semibold text-gray-900">Tour Management</h1>
             </div>
             <Link
               href="/admin/tours/new"
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium"
             >
               Add New Tour
             </Link>
@@ -171,7 +171,7 @@ export default function AdminToursPage() {
               onClick={() => setFilter('all')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'all'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -181,7 +181,7 @@ export default function AdminToursPage() {
               onClick={() => setFilter('active')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'active'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -191,7 +191,7 @@ export default function AdminToursPage() {
               onClick={() => setFilter('inactive')}
               className={`px-4 py-2 rounded-md text-sm font-medium ${
                 filter === 'inactive'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -205,7 +205,7 @@ export default function AdminToursPage() {
             <p className="text-red-600 mb-4">{error}</p>
             <button
               onClick={fetchTours}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md"
             >
               Try Again
             </button>
@@ -221,7 +221,7 @@ export default function AdminToursPage() {
             <p className="text-gray-500 mb-6">Get started by creating your first tour.</p>
             <Link
               href="/admin/tours/new"
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md font-medium"
+              className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-md font-medium"
             >
               Add New Tour
             </Link>
@@ -271,13 +271,13 @@ export default function AdminToursPage() {
                             <Link
                               href={`/tours/${tour.id}`}
                               target="_blank"
-                              className="text-indigo-600 hover:text-indigo-500 text-sm font-medium"
+                              className="text-primary hover:text-primary/80 text-sm font-medium"
                             >
                               View
                             </Link>
                             <Link
                               href={`/admin/tours/${tour.id}/edit`}
-                              className="text-indigo-600 hover:text-indigo-500 text-sm font-medium"
+                              className="text-primary hover:text-primary/80 text-sm font-medium"
                             >
                               Edit
                             </Link>

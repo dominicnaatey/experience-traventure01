@@ -79,7 +79,7 @@ export default function AdminDashboard() {
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
             <h1 className="text-xl font-semibold text-gray-900">Admin Dashboard</h1>
             <div className="flex items-center space-x-4">
               <span className="text-gray-700">Welcome, {session.user?.name}</span>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
                 {session.user?.role}
               </span>
             </div>
@@ -111,14 +111,14 @@ export default function AdminDashboard() {
             <p className="text-red-600 mb-4">{error}</p>
             <button
               onClick={fetchDashboardStats}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md"
             >
               Try Again
             </button>
           </div>
         ) : !stats ? (
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
           </div>
         ) : (
           <>
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="flex items-center">
                     <div className="shrink-0">
-                      <div className="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
+                      <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
                         <span className="text-white text-sm font-medium">$</span>
                       </div>
                     </div>
@@ -192,7 +192,7 @@ export default function AdminDashboard() {
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="flex items-center">
                     <div className="shrink-0">
-                      <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                      <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
                         <span className="text-white text-sm font-medium">🏞️</span>
                       </div>
                     </div>
@@ -244,7 +244,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-indigo-600">
+                    <div className="text-3xl font-bold text-primary">
                       {stats.confirmedBookings > 0 ? Math.round((stats.confirmedBookings / stats.totalBookings) * 100) : 0}%
                     </div>
                     <div className="text-sm text-gray-500">Conversion Rate</div>
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
                   <h2 className="text-lg font-medium text-gray-900">Recent Bookings</h2>
                   <Link
                     href="/admin/bookings"
-                    className="text-sm text-indigo-600 hover:text-indigo-500"
+                    className="text-sm text-primary hover:text-primary/80"
                   >
                     View all
                   </Link>
@@ -295,7 +295,7 @@ export default function AdminDashboard() {
                               <p className="text-sm text-gray-500">
                                 {formatDate(booking.createdAt)}
                               </p>
-                              <p className="text-sm font-medium text-indigo-600">
+                              <p className="text-sm font-medium text-primary">
                                 ${booking.totalPrice}
                               </p>
                             </div>

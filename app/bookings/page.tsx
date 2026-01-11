@@ -112,7 +112,7 @@ export default function BookingsPage() {
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -127,7 +127,7 @@ export default function BookingsPage() {
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-500">
+            <Link href="/dashboard" className="text-primary hover:text-primary/80">
               ← Back to Dashboard
             </Link>
             <div className="flex items-center space-x-4">
@@ -152,7 +152,7 @@ export default function BookingsPage() {
             <p className="text-red-600 mb-4">{error}</p>
             <button
               onClick={fetchBookings}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md"
             >
               Try Again
             </button>
@@ -168,7 +168,7 @@ export default function BookingsPage() {
             <p className="text-gray-500 mb-6">Start exploring our amazing tours and make your first booking!</p>
             <Link
               href="/tours"
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md font-medium"
+              className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-md font-medium"
             >
               Browse Tours
             </Link>
@@ -214,7 +214,7 @@ export default function BookingsPage() {
                       <div>
                         <span className="font-medium">Total Price:</span>
                         <br />
-                        <span className="text-lg font-bold text-indigo-600">${booking.totalPrice}</span>
+                        <span className="text-lg font-bold text-primary">${booking.totalPrice}</span>
                       </div>
                       <div>
                         <span className="font-medium">Booked:</span>
@@ -228,7 +228,7 @@ export default function BookingsPage() {
                   <div className="mt-4 lg:mt-0 lg:ml-6 flex flex-col sm:flex-row lg:flex-col space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-0 lg:space-y-2">
                     <Link
                       href={`/bookings/${booking.id}`}
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center"
+                      className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium text-center"
                     >
                       View Details
                     </Link>
