@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
-import { UserRole } from '@/app/generated/prisma'
+import { UserRole } from '@prisma/client'
 
 export interface AuthenticatedRequest extends NextRequest {
   user?: {

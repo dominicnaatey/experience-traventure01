@@ -1,4 +1,4 @@
-import { ContentType } from '@/app/generated/prisma'
+import { ContentType } from '@prisma/client'
 
 export interface Content {
   id: string

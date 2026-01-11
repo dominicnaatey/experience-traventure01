@@ -9,7 +9,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as fc from 'fast-check'
 import { BusinessRuleValidator, BusinessRuleError, ItineraryDay } from '@/app/lib/models'
-import { UserRole } from '@/app/generated/prisma'
+import { UserRole } from '@prisma/client'
 
 // Mock types for testing
 interface MockUser {

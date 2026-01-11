@@ -1,4 +1,4 @@
-import { BookingStatus } from '../../generated/prisma';
+import { BookingStatus } from '@prisma/client';
 import { AvailabilityService } from './availability';
 import { NotificationService } from './notification';
 import { AdminNotificationService } from './admin-notification';

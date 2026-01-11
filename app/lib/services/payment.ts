@@ -1,5 +1,5 @@
 import { prisma } from '@/app/lib/prisma';
-import { PaymentMethod, PaymentProvider, PaymentStatus, Payment } from '@/app/generated/prisma';
+import { PaymentMethod, PaymentProvider, PaymentStatus, Payment } from '@prisma/client';
 import { BusinessRuleValidator } from '@/app/lib/validation/business-rules';
 import { AdminNotificationService } from './admin-notification';
 import { NotificationService } from './notification';

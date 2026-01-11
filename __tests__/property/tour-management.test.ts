@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect, jest } from '@jest/globals'
-import { TourStatus } from '../../app/generated/prisma'
+import { TourStatus } from '@prisma/client'
 
 // Mock Prisma client
 const mockPrisma = {

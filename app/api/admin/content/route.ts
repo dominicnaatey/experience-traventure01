@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { ContentService, ContentFilters } from '@/app/lib/services/content'
 import { ContentValidator, CreateContentData, ContentValidationError } from '@/app/lib/models/content'
-import { ContentType } from '@/app/generated/prisma'
+import { ContentType } from '@prisma/client'
 
 // GET /api/admin/content - List all content (admin only)
 export async function GET(request: NextRequest) {

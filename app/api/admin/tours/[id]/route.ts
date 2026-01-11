@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
 import { TourValidator, UpdateTourData, TourValidationError } from '@/app/lib/models'
-import { UserRole } from '@/app/generated/prisma'
+import { UserRole } from '@prisma/client'
 
 // GET - Get single tour for admin
 export async function GET(

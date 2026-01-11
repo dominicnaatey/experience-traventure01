@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ContentService, ContentFilters } from '@/app/lib/services/content'
 import { ContentValidator } from '@/app/lib/models/content'
-import { ContentType } from '@/app/generated/prisma'
+import { ContentType } from '@prisma/client'
 
 // GET /api/content - List published content (public)
 export async function GET(request: NextRequest) {

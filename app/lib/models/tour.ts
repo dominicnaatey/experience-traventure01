@@ -1,4 +1,4 @@
-import { Tour as PrismaTour, TourStatus, Difficulty } from '@/app/generated/prisma';
+import { Tour as PrismaTour, TourStatus, Difficulty } from '@prisma/client';
 
 export type Tour = PrismaTour;
 

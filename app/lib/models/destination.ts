@@ -1,4 +1,4 @@
-import { Destination as PrismaDestination } from '@/app/generated/prisma';
+import { Destination as PrismaDestination } from '@prisma/client';
 
 export type Destination = PrismaDestination;
 

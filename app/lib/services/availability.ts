@@ -1,5 +1,5 @@
 import { prisma } from '../prisma';
-import { Prisma } from '../../generated/prisma';
+import { Prisma } from '@prisma/client';
 
 export interface AvailabilityInfo {
   availabilityId: string;

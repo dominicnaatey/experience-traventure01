@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/lib/auth';
-import { BookingStatus } from '@/app/generated/prisma';
+import { BookingStatus } from '@prisma/client';
 import { AdminNotificationService } from '@/app/lib/services/admin-notification';
 import { prisma } from '@/app/lib/prisma';
 

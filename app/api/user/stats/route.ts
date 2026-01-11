@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/lib/auth'
 import { prisma } from '@/app/lib/prisma'
-import { BookingStatus } from '@/app/generated/prisma'
+import { BookingStatus } from '@prisma/client'
 
 export async function GET() {
   try {

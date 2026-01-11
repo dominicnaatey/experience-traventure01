@@ -1,5 +1,5 @@
 import { prisma } from '@/app/lib/prisma'
-import { ContentType } from '@/app/generated/prisma'
+import { ContentType } from '@prisma/client'
 import { 
   Content, 
   CreateContentData, 

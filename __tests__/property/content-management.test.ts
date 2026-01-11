@@ -22,7 +22,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as fc from 'fast-check'
 import { ContentValidator, CreateContentData, UpdateContentData, ContentValidationError } from '@/app/lib/models/content'
-import { ContentType } from '@/app/generated/prisma'
+import { ContentType } from '@prisma/client'
 
 // Mock content for testing publication logic
 interface MockContent {

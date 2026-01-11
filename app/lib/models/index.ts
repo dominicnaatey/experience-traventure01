@@ -79,4 +79,4 @@ export {
   PaymentProvider,
   PaymentStatus,
   ContentType,
-} from '@/app/generated/prisma';
+} from '@prisma/client';

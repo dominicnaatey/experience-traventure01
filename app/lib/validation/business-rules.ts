@@ -1,4 +1,4 @@
-import { UserRole } from '@/app/generated/prisma';
+import { UserRole } from '@prisma/client';
 import { User } from '../models/user';
 import { Tour, ItineraryDay } from '../models/tour';
 import { TourAvailability } from '../models/tour-availability';

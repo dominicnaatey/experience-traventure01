@@ -9,7 +9,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as fc from 'fast-check'
 import { TourValidator, CreateTourData, TourValidationError, ItineraryDay } from '@/app/lib/models'
-import { Difficulty, TourStatus } from '@/app/generated/prisma'
+import { Difficulty, TourStatus } from '@prisma/client'
 
 describe('Tour Creation Validation Properties', () => {
   it('should validate all required fields for tour creation', async () => {

@@ -42,5 +42,3 @@ next-env.d.ts
 
 # Specs
 /.kiro
-
-/app/generated/prisma
