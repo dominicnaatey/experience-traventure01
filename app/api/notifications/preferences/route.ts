@@ -4,7 +4,7 @@ import { authOptions } from '@/app/lib/auth';
 import { NotificationService } from '@/app/lib/services/notification';
 import { prisma } from '@/app/lib/prisma';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     
@@ -82,7 +82,7 @@ export async function PUT(request: NextRequest) {
 
     // Remove undefined values
     const validPreferences = Object.fromEntries(
-      Object.entries(preferences).filter(([_, value]) => value !== undefined)
+      Object.entries(preferences).filter(([, value]) => value !== undefined)
     );
 
     if (Object.keys(validPreferences).length === 0) {
