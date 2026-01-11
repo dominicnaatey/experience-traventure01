@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/app/lib/prisma'
-import { TourStatus, Difficulty } from '@/app/generated/prisma'
+import { TourStatus, Difficulty, Prisma } from '@/app/generated/prisma'
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status') || 'ACTIVE' // Default to active tours for public listing
     
     // Build where clause for filtering
-    const where: any = {
+    const where: Prisma.TourWhereInput = {
       status: status as TourStatus
     }
     
@@ -43,24 +43,26 @@ export async function GET(request: NextRequest) {
     
     // Price filtering
     if (minPrice || maxPrice) {
-      where.pricePerPerson = {}
+      const priceFilter: Prisma.FloatFilter = {}
       if (minPrice) {
-        where.pricePerPerson.gte = parseFloat(minPrice)
+        priceFilter.gte = parseFloat(minPrice)
       }
       if (maxPrice) {
-        where.pricePerPerson.lte = parseFloat(maxPrice)
+        priceFilter.lte = parseFloat(maxPrice)
       }
+      where.pricePerPerson = priceFilter
     }
     
     // Duration filtering
     if (minDuration || maxDuration) {
-      where.durationDays = {}
+      const durationFilter: Prisma.IntFilter = {}
       if (minDuration) {
-        where.durationDays.gte = parseInt(minDuration)
+        durationFilter.gte = parseInt(minDuration)
       }
       if (maxDuration) {
-        where.durationDays.lte = parseInt(maxDuration)
+        durationFilter.lte = parseInt(maxDuration)
       }
+      where.durationDays = durationFilter
     }
     
     // Difficulty filtering
@@ -116,7 +118,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to fetch tours'
+        error: error instanceof Error ? error.message : 'Failed to fetch tours'
       },
       { status: 500 }
     )
