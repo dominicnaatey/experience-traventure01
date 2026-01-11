@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { CreditCardIcon, DevicePhoneMobileIcon, BuildingLibraryIcon } from '@heroicons/react/24/outline'
 
 interface PaymentFormProps {
   bookingId: string
@@ -15,7 +16,7 @@ interface PaymentMethod {
   type: 'card' | 'mobile_money' | 'bank'
   provider: 'stripe' | 'paystack' | 'flutterwave'
   description: string
-  icon: string
+  icon: React.ReactNode
 }
 
 const paymentMethods: PaymentMethod[] = [
@@ -25,7 +26,7 @@ const paymentMethods: PaymentMethod[] = [
     type: 'card',
     provider: 'stripe',
     description: 'Pay with Visa, Mastercard, or American Express',
-    icon: '💳'
+    icon: <CreditCardIcon className="w-6 h-6" />
   },
   {
     id: 'paystack_card',
@@ -33,7 +34,7 @@ const paymentMethods: PaymentMethod[] = [
     type: 'card',
     provider: 'paystack',
     description: 'Pay with your local or international card',
-    icon: '💳'
+    icon: <CreditCardIcon className="w-6 h-6" />
   },
   {
     id: 'paystack_mobile',
@@ -41,7 +42,7 @@ const paymentMethods: PaymentMethod[] = [
     type: 'mobile_money',
     provider: 'paystack',
     description: 'Pay with MTN, Airtel, or other mobile money',
-    icon: '📱'
+    icon: <DevicePhoneMobileIcon className="w-6 h-6" />
   },
   {
     id: 'paystack_bank',
@@ -49,7 +50,7 @@ const paymentMethods: PaymentMethod[] = [
     type: 'bank',
     provider: 'paystack',
     description: 'Direct bank transfer',
-    icon: '🏦'
+    icon: <BuildingLibraryIcon className="w-6 h-6" />
   }
 ]
 
@@ -168,7 +169,7 @@ export default function PaymentForm({ bookingId, amount, onSuccess, onError }: P
                 onClick={() => setSelectedMethod(method)}
               >
                 <div className="flex items-center">
-                  <div className="text-2xl mr-3">{method.icon}</div>
+                  <div className="mr-3 text-primary">{method.icon}</div>
                   <div className="flex-1">
                     <div className="font-medium text-gray-900">{method.name}</div>
                     <div className="text-sm text-gray-500">{method.description}</div>
