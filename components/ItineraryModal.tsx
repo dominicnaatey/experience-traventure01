@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { XMarkIcon, PrinterIcon } from '@heroicons/react/24/outline';
 
 interface ItineraryModalProps {
   itinerary: string | null;
@@ -21,7 +22,7 @@ const ItineraryModal: React.FC<ItineraryModalProps> = ({ itinerary, onClose, tit
             <p className="text-sm opacity-90">{title}</p>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
-            <span className="material-symbols-outlined">close</span>
+            <XMarkIcon className="w-6 h-6 text-white" />
           </button>
         </div>
         
@@ -41,7 +42,7 @@ const ItineraryModal: React.FC<ItineraryModalProps> = ({ itinerary, onClose, tit
             onClick={() => window.print()}
             className="px-6 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white font-bold rounded-xl flex items-center gap-2 hover:bg-gray-200 transition-all"
           >
-            <span className="material-symbols-outlined text-sm">print</span>
+            <PrinterIcon className="w-5 h-5" />
             Print Plan
           </button>
         </div>

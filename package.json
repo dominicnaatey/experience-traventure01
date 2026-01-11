@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.35.0",
+    "@heroicons/react": "^2.2.0",
     "@neondatabase/serverless": "^1.0.2",
     "@prisma/adapter-neon": "^7.2.0",
     "@prisma/adapter-pg": "^7.2.0",

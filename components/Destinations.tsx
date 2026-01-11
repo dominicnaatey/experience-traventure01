@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { FEATURED_DESTINATIONS } from '../app/lib/constants';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 const Destinations: React.FC = () => {
   return (
@@ -13,7 +14,7 @@ const Destinations: React.FC = () => {
           <p className="text-gray-500 dark:text-gray-400">Explore our most popular spots around the globe.</p>
         </div>
         <a className="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all" href="#">
-          View all destinations <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          View all destinations <ArrowRightIcon className="w-4 h-4" />
         </a>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

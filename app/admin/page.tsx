@@ -4,6 +4,14 @@ import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { 
+  CurrencyDollarIcon, 
+  CalendarIcon, 
+  MapIcon, 
+  UserGroupIcon, 
+  GlobeAltIcon, 
+  DocumentTextIcon 
+} from '@heroicons/react/24/outline'
 
 interface DashboardStats {
   totalBookings: number
@@ -128,30 +136,30 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Link
                   href="/admin/tours"
-                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center"
+                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center flex flex-col items-center"
                 >
-                  <div className="text-2xl mb-2">🏞️</div>
+                  <MapIcon className="w-8 h-8 text-primary mb-2" />
                   <div className="font-medium text-gray-900">Manage Tours</div>
                 </Link>
                 <Link
                   href="/admin/bookings"
-                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center"
+                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center flex flex-col items-center"
                 >
-                  <div className="text-2xl mb-2">📅</div>
+                  <CalendarIcon className="w-8 h-8 text-primary mb-2" />
                   <div className="font-medium text-gray-900">View Bookings</div>
                 </Link>
                 <Link
                   href="/admin/destinations"
-                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center"
+                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center flex flex-col items-center"
                 >
-                  <div className="text-2xl mb-2">🌍</div>
+                  <GlobeAltIcon className="w-8 h-8 text-primary mb-2" />
                   <div className="font-medium text-gray-900">Destinations</div>
                 </Link>
                 <Link
                   href="/admin/content"
-                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center"
+                  className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center flex flex-col items-center"
                 >
-                  <div className="text-2xl mb-2">📝</div>
+                  <DocumentTextIcon className="w-8 h-8 text-primary mb-2" />
                   <div className="font-medium text-gray-900">Content</div>
                 </Link>
               </div>
@@ -165,7 +173,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center">
                     <div className="shrink-0">
                       <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">$</span>
+                        <CurrencyDollarIcon className="w-5 h-5 text-white" />
                       </div>
                     </div>
                     <div className="ml-4">
@@ -179,7 +187,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center">
                     <div className="shrink-0">
                       <div className="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">📅</span>
+                        <CalendarIcon className="w-5 h-5 text-white" />
                       </div>
                     </div>
                     <div className="ml-4">
@@ -193,7 +201,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center">
                     <div className="shrink-0">
                       <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">🏞️</span>
+                        <MapIcon className="w-5 h-5 text-white" />
                       </div>
                     </div>
                     <div className="ml-4">
@@ -208,7 +216,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center">
                     <div className="shrink-0">
                       <div className="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">👥</span>
+                        <UserGroupIcon className="w-5 h-5 text-white" />
                       </div>
                     </div>
                     <div className="ml-4">

@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { SunIcon, MoonIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 interface NavbarProps {
   toggleDarkMode: () => void;
@@ -38,15 +39,17 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDarkMode, isDarkMode }) => {
               className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors"
               aria-label="Toggle dark mode"
             >
-              <span className="material-symbols-outlined">
-                {isDarkMode ? 'light_mode' : 'dark_mode'}
-              </span>
+              {isDarkMode ? (
+                <SunIcon className="w-6 h-6" />
+              ) : (
+                <MoonIcon className="w-6 h-6" />
+              )}
             </button>
             <button 
               className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-all border border-gray-200 dark:border-gray-700 shadow-sm"
               aria-label="User profile"
             >
-              <span className="material-symbols-outlined">person</span>
+              <UserCircleIcon className="w-6 h-6" />
             </button>
           </div>
         </div>

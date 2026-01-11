@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { SearchResult } from '../app/types';
+import { SparklesIcon, XMarkIcon, MapIcon, LinkIcon } from '@heroicons/react/24/outline';
 
 interface SearchResultModalProps {
   result: SearchResult | null;
@@ -18,11 +19,11 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
       <div className="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">auto_awesome</span>
+            <SparklesIcon className="w-6 h-6 text-primary" />
             <h3 className="text-xl font-bold dark:text-white">AI Travel Insights</h3>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
-            <span className="material-symbols-outlined dark:text-white">close</span>
+            <XMarkIcon className="w-6 h-6 dark:text-white" />
           </button>
         </div>
         
@@ -54,9 +55,11 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
                         : 'bg-primary/10 text-primary hover:bg-primary hover:text-white'
                       }`}
                     >
-                      <span className="material-symbols-outlined text-[14px]">
-                        {isMap ? 'map' : 'link'}
-                      </span>
+                      {isMap ? (
+                        <MapIcon className="w-[14px] h-[14px]" />
+                      ) : (
+                        <LinkIcon className="w-[14px] h-[14px]" />
+                      )}
                       {data.title}
                     </a>
                   );

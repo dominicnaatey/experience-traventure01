@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { MapPinIcon, CalendarIcon, UserGroupIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 interface HeroProps {
   onSearch: (destination: string) => void;
@@ -40,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           {/* Destination */}
           <div className="flex-1 relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-primary">location_on</span>
+              <MapPinIcon className="w-5 h-5 text-gray-400 group-focus-within:text-primary" />
             </div>
             <input 
               value={destination}
@@ -54,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           {/* Date */}
           <div className="flex-1 md:max-w-[200px] relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-primary">calendar_month</span>
+              <CalendarIcon className="w-5 h-5 text-gray-400 group-focus-within:text-primary" />
             </div>
             <input 
               className="block w-full pl-10 pr-3 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium" 
@@ -67,7 +68,7 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
           {/* Travelers */}
           <div className="flex-1 md:max-w-[180px] relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 group-focus-within:text-primary">group</span>
+              <UserGroupIcon className="w-5 h-5 text-gray-400 group-focus-within:text-primary" />
             </div>
             <select className="block w-full pl-10 pr-8 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-gray-700 transition-all text-sm font-medium appearance-none cursor-pointer">
               <option disabled defaultValue="">Travelers</option>
@@ -77,7 +78,7 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
               <option value="4+">4+ Guests</option>
             </select>
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span className="material-symbols-outlined text-gray-400 text-[20px]">expand_more</span>
+              <ChevronDownIcon className="w-5 h-5 text-gray-400" />
             </div>
           </div>
           {/* Submit Button */}
@@ -90,7 +91,7 @@ const Hero: React.FC<HeroProps> = ({ onSearch, isLoading }) => {
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
             ) : (
               <>
-                <span className="material-symbols-outlined text-[20px]">search</span>
+                <MagnifyingGlassIcon className="w-5 h-5" />
                 <span>Search</span>
               </>
             )}

@@ -2,7 +2,9 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { TESTIMONIALS } from '../app/lib/constants';
+import { StarIcon } from '@heroicons/react/24/solid';
 
 const Testimonials: React.FC = () => {
   return (
@@ -11,15 +13,20 @@ const Testimonials: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {TESTIMONIALS.map((t) => (
           <div key={t.id} className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-            <div className="flex text-yellow-500 mb-4">
+            <div className="flex mb-4">
               {[...Array(5)].map((_, i) => (
-                <span key={i} className={`material-symbols-outlined text-sm ${i < Math.floor(t.rating) ? 'fill-1' : ''}`}>star</span>
+                <StarIcon key={i} className={`w-4 h-4 ${i < Math.floor(t.rating) ? 'text-yellow-500' : 'text-gray-300'}`} />
               ))}
             </div>
-            <p className="text-gray-600 dark:text-gray-300 italic mb-6">"{t.comment}"</p>
+            <p className="text-gray-600 dark:text-gray-300 italic mb-6">&quot;{t.comment}&quot;</p>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                <img alt={t.name} className="w-full h-full object-cover" src={t.avatar} />
+              <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden relative">
+                <Image 
+                  alt={t.name} 
+                  src={t.avatar} 
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div>
                 <p className="font-bold text-sm text-[#111318] dark:text-white">{t.name}</p>

@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { GlobeAltIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 
 const Footer: React.FC = () => {
   return (
@@ -63,11 +64,11 @@ const Footer: React.FC = () => {
           <p className="text-sm text-gray-400">© 2023 Wanderlust Travel & Tour Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 text-gray-400">
-              <span className="material-symbols-outlined text-sm">language</span>
+              <GlobeAltIcon className="w-4 h-4" />
               <span className="text-sm">English (US)</span>
             </div>
             <div className="flex items-center gap-2 text-gray-400">
-              <span className="material-symbols-outlined text-sm">attach_money</span>
+              <CurrencyDollarIcon className="w-4 h-4" />
               <span className="text-sm">USD</span>
             </div>
           </div>

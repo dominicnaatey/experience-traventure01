@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { ArrowLeftIcon, PlusIcon } from '@heroicons/react/24/outline'
 
 interface Tour {
   id: string
@@ -148,16 +149,18 @@ export default function AdminToursPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/admin" className="text-primary hover:text-primary/80">
-                ← Admin Dashboard
+              <Link href="/admin" className="text-primary hover:text-primary/80 flex items-center gap-2">
+                <ArrowLeftIcon className="w-4 h-4" />
+                <span>Admin Dashboard</span>
               </Link>
               <h1 className="text-xl font-semibold text-gray-900">Tour Management</h1>
             </div>
             <Link
               href="/admin/tours/new"
-              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2"
             >
-              Add New Tour
+              <PlusIcon className="w-5 h-5" />
+              <span>Add New Tour</span>
             </Link>
           </div>
         </div>

@@ -4,6 +4,8 @@
 import React from 'react';
 import { TOUR_PACKAGES } from '../app/lib/constants';
 import { TourPackage } from '../app/types';
+import { MapPinIcon } from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/24/solid';
 
 interface TourPackagesProps {
   onGenerateItinerary: (pkg: TourPackage) => void;
@@ -28,12 +30,12 @@ const TourPackages: React.FC<TourPackagesProps> = ({ onGenerateItinerary, isGene
                 style={{ backgroundImage: `url('${pkg.imageUrl}')` }}
               ></div>
               <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#111318] dark:text-white flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm text-yellow-500 fill-1">star</span> {pkg.rating}
+                <StarIcon className="w-3.5 h-3.5 text-yellow-500" /> {pkg.rating}
               </div>
             </div>
             <div className="p-5 flex flex-col flex-1">
               <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-2">
-                <span className="material-symbols-outlined text-[18px]">location_on</span>
+                <MapPinIcon className="w-[18px] h-[18px]" />
                 <span>{pkg.location}</span>
                 <span className="w-1 h-1 rounded-full bg-gray-300 mx-1"></span>
                 <span>{pkg.duration}</span>
