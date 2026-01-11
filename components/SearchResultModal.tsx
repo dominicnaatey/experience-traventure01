@@ -14,6 +14,7 @@ const SearchResultModal: React.FC<SearchResultModalProps> = ({ result, onClose }
 
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+
       <div className="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
